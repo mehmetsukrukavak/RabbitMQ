@@ -3,8 +3,11 @@ using RabbitMQ.Client;
 using System.Text;
 using RabbitMQ.Client.Events;
 
-var factory = new ConnectionFactory();
-factory.Uri = new Uri("amqps://smdhxzvz:9uTPKN_LZgM1e83qKgFE_w5gB9VMh0GQ@chimpanzee.rmq.cloudamqp.com/smdhxzvz");
+var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
+
+
+//var factory = new ConnectionFactory();
+//factory.Uri = new Uri("amqps://smdhxzvz:9uTPKN_LZgM1e83qKgFE_w5gB9VMh0GQ@chimpanzee.rmq.cloudamqp.com/smdhxzvz");
 
 using var connection = factory.CreateConnection();
 
