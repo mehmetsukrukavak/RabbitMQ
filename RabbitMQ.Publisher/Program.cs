@@ -13,12 +13,15 @@ using var connection = factory.CreateConnection();
 
 var channel = connection.CreateModel();
 channel.QueueDeclare("hello-queue", true, false, false );
+Enumerable.Range(1,500).ToList().ForEach(x =>
+{
+    string message = $"Message : {x}, {DateTime.Now}";
 
-string message = $"hello world {DateTime.Now}";
+    var messageBody = Encoding.UTF8.GetBytes(message);
 
-var messageBody = Encoding.UTF8.GetBytes(message);
+    channel.BasicPublish(string.Empty,"hello-queue", null,messageBody);
 
-channel.BasicPublish(string.Empty,"hello-queue", null,messageBody);
+    Console.WriteLine($"Messaj Gönderilmiştir: {message}");
+});
 
-Console.WriteLine("Messaj Gönderilmiştir");
 Console.ReadLine();

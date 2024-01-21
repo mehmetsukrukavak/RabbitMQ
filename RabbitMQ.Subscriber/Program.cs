@@ -13,6 +13,7 @@ using var connection = factory.CreateConnection();
 
 var channel = connection.CreateModel();
 //channel.QueueDeclare("hello-queue", true, false, false);
+channel.BasicQos(0, 1, false);
 
 var consumer = new EventingBasicConsumer(channel);
 
@@ -21,7 +22,9 @@ channel.BasicConsume("hello-queue", true,consumer);
 consumer.Received += (object sender, BasicDeliverEventArgs e) =>
 {
     var message = Encoding.UTF8.GetString(e.Body.ToArray());
+    //Thread.Sleep(1500);
     Console.WriteLine($"Gelen Message : {message}");
+    channel.BasicAck(e.DeliveryTag, false);
 };
 
 Console.ReadLine();
