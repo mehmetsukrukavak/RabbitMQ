@@ -18,7 +18,7 @@ headers.Add("shape","a4");
 
 var properties = channel.CreateBasicProperties();
 properties.Headers = headers;
-
+properties.Persistent = true; //mesajları kalıcı hale getirir
 channel.BasicPublish(exchangeName, string.Empty,properties,Encoding.UTF8.GetBytes("Header Mesajım"));
 
 Console.WriteLine("Mesaj Gönderilmiştir.");

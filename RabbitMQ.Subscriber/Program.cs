@@ -1,7 +1,10 @@
-﻿using System.Runtime.Loader;
+﻿using System.Net.Http.Headers;
+using System.Runtime.Loader;
 using RabbitMQ.Client;
 using System.Text;
+using System.Text.Json;
 using RabbitMQ.Client.Events;
+using Shared;
 
 var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
 
@@ -23,7 +26,8 @@ consumer.Received += (object sender, BasicDeliverEventArgs e) =>
 {
     var message = Encoding.UTF8.GetString(e.Body.ToArray());
     //Thread.Sleep(1500);
-    Console.WriteLine($"Gelen Message : {message}");
+    Product product = JsonSerializer.Deserialize<Product>(message);
+    Console.WriteLine($"Gelen Ürün : {product.Id} - {product.Name} - ${product.Price} - {product.Stock} piece(s)");
     channel.BasicAck(e.DeliveryTag, false);
 };
 
