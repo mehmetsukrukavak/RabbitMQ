@@ -1,4 +1,4 @@
-﻿namespace RabbitMq.DirextPublisher;
+﻿namespace RabbitMq.DirectPublisher;
 
 public enum LogNames
 {

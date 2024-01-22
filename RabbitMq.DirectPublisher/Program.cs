@@ -2,7 +2,7 @@
 
 using System.Text;
 using RabbitMQ.Client;
-using RabbitMq.DirextPublisher;
+using RabbitMq.DirectPublisher;
 
 
 var factory = new ConnectionFactory() { HostName = "localhost", Port = 5672, UserName = "guest", Password = "guest" };
